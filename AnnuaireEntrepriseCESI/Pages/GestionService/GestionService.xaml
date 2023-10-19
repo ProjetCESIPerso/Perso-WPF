@@ -1,0 +1,42 @@
+﻿<Window x:Class="AnnuaireEntrepriseCESI.Pages.GestionService.GestionService"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnnuaireEntrepriseCESI.Pages.GestionService"
+        mc:Ignorable="d"
+        Title="GestionService" Height="450" Width="800">
+    <Grid>
+        <Button Content="Retour" HorizontalAlignment="Left" Margin="735,52,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ajouter un service" HorizontalAlignment="Left" Margin="400,42,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,42,0,0" Text="Service" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Recherche :" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.469,0.614" Height="26" Width="120"/>
+        <DataGrid Name="DataService" AutoGenerateColumns="False" Margin="10,77,10,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="5*" Header="ID" Binding="{Binding Id}" />
+                <DataGridTextColumn Width="5*" Header="Nom" Binding="{Binding Name}" />
+
+                <DataGridTemplateColumn Header="Modifier"  Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="ModifyService" FontSize="14" >
+                                <Image Width="20" Height="20" Source="/Images/modifier.png" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Supprimer"  Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="DeleteService" FontSize="14" >
+                                <Image Name="imgtest" Width="20" Height="20" Source="C:\Users\camil\source\repos\Perso-WPF\AnnuaireEntrepriseCESI\Images\supprimer.png" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

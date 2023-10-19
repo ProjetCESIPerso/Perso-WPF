@@ -2,6 +2,7 @@
 using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Pages;
+using AnnuaireEntrepriseCESI.Pages.GestionService;
 using AnnuaireEntrepriseCESI.Services;
 using System;
 using System.Collections.Generic;
@@ -82,11 +83,27 @@ namespace AnnuaireEntrepriseCESI
                 
                 if (result == true)
                 {
-                    GestionService.Visibility = Visibility.Visible;
-                    GestionSite.Visibility = Visibility.Visible;
-                    GestionUser.Visibility = Visibility.Visible;
+                    BtnGestionService.Visibility = Visibility.Visible;
+                    BtnGestionSite.Visibility = Visibility.Visible;
+                    BtnGestionUser.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void BtnGestionServiceClick(object sender, RoutedEventArgs e)
+        {
+            GestionService gestionService = new GestionService();
+            gestionService.ShowDialog();
+        }
+
+        private void BtnGestionSiteClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnGestionUserClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
