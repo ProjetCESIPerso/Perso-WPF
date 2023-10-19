@@ -77,8 +77,15 @@ namespace AnnuaireEntrepriseCESI
         {
             if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.B)
             {
-                Login login = new Login();
-                login.Show();
+                var login = new Login();
+                var result = login.ShowDialog();
+                
+                if (result == true)
+                {
+                    GestionService.Visibility = Visibility.Visible;
+                    GestionSite.Visibility = Visibility.Visible;
+                    GestionUser.Visibility = Visibility.Visible;
+                }
             }
         }
     }

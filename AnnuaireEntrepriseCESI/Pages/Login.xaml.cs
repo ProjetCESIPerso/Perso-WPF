@@ -28,5 +28,18 @@ namespace AnnuaireEntrepriseCESI.Pages
         {
             this.Close();
         }
+
+        private void BtnLoginClick(object sender, RoutedEventArgs e)
+        {
+            if (PassWordTextBox.Password == "1234")
+            {
+                DialogResult = true; 
+            }
+            else
+            {
+                MessageBox.Show("Le mot de passe est incorrect", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                PassWordTextBox.Clear();
+            }
+        }
     }
 }

@@ -8,8 +8,8 @@
         Title="Login" Height="200" Width="300" MaxHeight="200" MaxWidth="300">
     <Grid>
         <TextBlock Text="Entrez votre mot de passe :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
-        <PasswordBox Name="MotDePasseTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="144"/>
-        <Button Content="Connexion" Name="ConnexionButton" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0"/>
+        <PasswordBox Name="PassWordTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Width="144"/>
+        <Button Content="Connexion" Name="ConnexionButton" Click="BtnLoginClick" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,80,0,0"/>
         <Button Content="Retour" Name="RetourBoutton" Click="BtnCloseClick" HorizontalAlignment="Center" Margin="0,105,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
