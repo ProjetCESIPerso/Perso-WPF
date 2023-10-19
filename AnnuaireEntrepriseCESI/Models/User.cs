@@ -14,7 +14,7 @@ public partial class User
 
     public string MobilePhone { get; set; } = null!;
 
-    public Service Service { get; set; } = null!;
+    public int ServiceId { get; set; }
 
-    public Site Site { get; set; } = null!;
+    public int SiteId { get; set; }
 }

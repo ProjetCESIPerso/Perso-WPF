@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnnuaireEntrepriseCESI"
         mc:Ignorable="d"
-        Title="Annuaire Entreprise" MinHeight="500" MinWidth="910" Height="500" Width="910" >
+        Title="Annuaire Entreprise" MinHeight="500" MinWidth="910" MaxHeight="500" MaxWidth="910" >
     <Grid>
         <!-- Première ligne : ComboBox et TextBox -->
         <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
             <Button Content="Gestion service" HorizontalAlignment="Left" Margin="542,0,0,0" VerticalAlignment="Center" Width="109" Visibility="Hidden"/>
             <Button Content="Gestion site" HorizontalAlignment="Left" Margin="542,39,0,0" VerticalAlignment="Top" Width="109" Visibility="Hidden"/>
 
-            <Button Content="Quitter" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Margin="810,30,0,0"/>
+            <Button Content="Quitter" Click="BtnQuitClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Margin="810,30,0,0"/>
         </Grid>
 
         <!-- Deuxième ligne : DataGrid -->
@@ -44,8 +44,8 @@
                 <DataGridTextColumn Header="Email" Binding="{Binding Mail}" />
                 <DataGridTextColumn Header="Téléphone fixe" Binding="{Binding PhoneNumber}" />
                 <DataGridTextColumn Header="Téléphone mobile" Binding="{Binding MobilePhone}" />
-                <DataGridTextColumn Header="Service" Binding="{Binding Service}" />
-                <DataGridTextColumn Header="Site" Binding="{Binding Site}" />
+                <DataGridTextColumn Header="Service" Binding="{Binding ServiceName}" />
+                <DataGridTextColumn Header="Site" Binding="{Binding SiteName}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
