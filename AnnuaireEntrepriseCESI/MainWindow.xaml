@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnnuaireEntrepriseCESI"
         mc:Ignorable="d"
-        Title="Annuaire Entreprise" MinHeight="500" MinWidth="910" MaxHeight="500" MaxWidth="910" >
+        Title="Annuaire Entreprise" MinHeight="500" MinWidth="910" MaxHeight="500" MaxWidth="910" WindowState="Maximized" KeyDown="Admin_KeyDown">
     <Grid>
         <!-- Première ligne : ComboBox et TextBox -->
         <Grid.RowDefinitions>

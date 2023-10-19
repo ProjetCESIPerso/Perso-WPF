@@ -1,11 +1,13 @@
 ﻿using AnnuaireEntrepriseCESI.DTOs;
 using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
+using AnnuaireEntrepriseCESI.Pages;
 using AnnuaireEntrepriseCESI.Services;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace AnnuaireEntrepriseCESI
 {
@@ -69,6 +71,15 @@ namespace AnnuaireEntrepriseCESI
         private void BtnQuitClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Admin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.B)
+            {
+                Login login = new Login();
+                login.Show();
+            }
         }
     }
 }
