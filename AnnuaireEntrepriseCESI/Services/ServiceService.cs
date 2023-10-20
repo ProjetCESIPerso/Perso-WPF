@@ -1,5 +1,6 @@
 ﻿using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace AnnuaireEntrepriseCESI.Services
     public class ServiceService : IServiceService
     {
         #region Champs
+        private readonly IConfiguration configuration;
         #endregion
 
         #region Constructeur

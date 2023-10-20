@@ -4,6 +4,7 @@ using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Pages;
 using AnnuaireEntrepriseCESI.Pages.GestionService;
 using AnnuaireEntrepriseCESI.Services;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -21,10 +22,12 @@ namespace AnnuaireEntrepriseCESI
         private readonly IServiceService _serviceService;
         private readonly ISiteService _siteService;
 
+        private readonly IOptions<AppSettings> _options;
+
         public MainWindow()
         {
             _userService = new UserService();
-            _serviceService = new ServiceService();
+            _serviceService = new ServiceService(_options);
             _siteService = new SiteService();
             InitializeComponent();
 
