@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnnuaireEntrepriseCESI"
         mc:Ignorable="d"
-        Title="Annuaire Entreprise" MinHeight="500" MinWidth="910" MaxHeight="500" MaxWidth="910" KeyDown="Admin_KeyDown">
+        Title="Annuaire Entreprise" Height="500" Width="910" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" KeyDown="Admin_KeyDown">
     <Grid>
         <!-- Première ligne : ComboBox et TextBox -->
         <Grid.RowDefinitions>
@@ -37,7 +37,7 @@
         </Grid>
 
         <!-- Deuxième ligne : DataGrid -->
-        <DataGrid Name="dataGrid" Grid.Row="2" Margin="10" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <DataGrid Name="dataGrid" IsReadOnly="True" Grid.Row="2" Margin="10" AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Surname}" />
                 <DataGridTextColumn Header="Prénom" Binding="{Binding Name}" />
