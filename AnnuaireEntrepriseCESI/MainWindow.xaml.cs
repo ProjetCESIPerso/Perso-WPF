@@ -3,6 +3,7 @@ using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Pages;
 using AnnuaireEntrepriseCESI.Pages.GestionService;
+using AnnuaireEntrepriseCESI.Pages.GestionSite;
 using AnnuaireEntrepriseCESI.Services;
 using System;
 using System.Collections.Generic;
@@ -98,7 +99,8 @@ namespace AnnuaireEntrepriseCESI
 
         private void BtnGestionSiteClick(object sender, RoutedEventArgs e)
         {
-
+            GestionSiteWindow gestionSite = new GestionSiteWindow();
+            gestionSite.ShowDialog();
         }
 
         private void BtnGestionUserClick(object sender, RoutedEventArgs e)

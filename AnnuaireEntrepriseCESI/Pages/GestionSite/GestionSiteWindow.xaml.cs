@@ -1,6 +1,6 @@
-﻿using AnnuaireEntrepriseCESI.DTOs;
-using AnnuaireEntrepriseCESI.Interfaces;
+﻿using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
+using AnnuaireEntrepriseCESI.Pages.GestionService;
 using AnnuaireEntrepriseCESI.Services;
 using System;
 using System.Collections.Generic;
@@ -16,36 +16,36 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace AnnuaireEntrepriseCESI.Pages.GestionService
+namespace AnnuaireEntrepriseCESI.Pages.GestionSite
 {
     /// <summary>
-    /// Logique d'interaction pour GestionService.xaml
+    /// Logique d'interaction pour GestionSiteWindow.xaml
     /// </summary>
-    public partial class GestionService : Window
+    public partial class GestionSiteWindow : Window
     {
-        private readonly IServiceService _serviceService;
+        private readonly ISiteService _siteService;
         private readonly IUserService _userService;
 
-        public GestionService()
+        public GestionSiteWindow()
         {
-            _serviceService = new ServiceService();
+            _siteService = new SiteService();
             _userService = new UserService();
             InitializeComponent();
 
-            RecupService();
+            RecupSite();
         }
 
-        private void RecupService()
+        private void RecupSite()
         {
             try
             {
-                List<Service> listService = _serviceService.GetAllService().Result;
+                List<Site> listSite = _siteService.GetAllSite().Result;
 
-                DataService.ItemsSource = listService;
+                DataSite.ItemsSource = listSite;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Une erreur est survenue lors de la récupération de la liste des services \nErreur : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Une erreur est survenue lors de la récupération de la liste des sites \nErreur : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -56,12 +56,12 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
 
         private void BtnAddClick(object sender, RoutedEventArgs e)
         {
-            var addService = new AddServiceWindow();
+            var addService = new AddSiteWindow();
             var result = addService.ShowDialog();
 
             if (result == true)
             {
-                RecupService();
+                RecupSite();
             }
             else
             {
@@ -73,17 +73,17 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
         {
             //Affichage d'une form avec la possibilité de modifier l'employée
             var sender_context = sender as Button;
-            var context = sender_context!.DataContext as Service;
+            var context = sender_context!.DataContext as Site;
 
-            var updateService = new UpdateService(context);
-            var result = updateService.ShowDialog();
+            var updateSite = new UpdateSiteWindow(context);
+            var result = updateSite.ShowDialog();
             if (result == true)
             {
-                RecupService();
+                RecupSite();
             }
             else
             {
-                RecupService();
+                RecupSite();
                 MessageBox.Show("La modification a été annulée", "Annulation", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -93,26 +93,26 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
             //Demander la confirmation de suppression
             var sender_context = sender as Button;
 
-            var context = sender_context!.DataContext as Service;
+            var context = sender_context!.DataContext as Site;
 
-            var resultMsgBoxDelete = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le service : '" + context!.Name + "' ?", "Confirmer la suppression", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var resultMsgBoxDelete = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le site : '" + context!.Town + "' ?", "Confirmer la suppression", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (resultMsgBoxDelete == MessageBoxResult.Yes)
             {
                 //Récupération du nombre d'attribution du service à un employé
-                int NbAttribution = _userService.GetNbOfAttributionToService(context!.Id).Result;
+                int NbAttribution = _userService.GetNbOfAttributionToSite(context!.Id).Result;
 
-                
+
                 if (NbAttribution > 0)
                 {
                     MessageBox.Show("Impossible de supprimer le service, il est attribué à " + NbAttribution + " employé(s) !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
-                    _serviceService.DeleteService(context.Name);
-                    RecupService();
+                    _siteService.DeleteSite(context.Town);
+                    RecupSite();
                 }
             }
-            RecupService();
+            RecupSite();
         }
     }
 }
