@@ -22,6 +22,8 @@ namespace AnnuaireEntrepriseCESI.Pages
         public Login()
         {
             InitializeComponent();
+
+            PassWordTextBox.Focus();
         }
 
         private void BtnCloseClick(object sender, RoutedEventArgs e)
