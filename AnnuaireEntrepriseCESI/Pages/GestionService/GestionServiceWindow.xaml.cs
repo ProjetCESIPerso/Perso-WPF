@@ -109,6 +109,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
                 else
                 {
                     _serviceService.DeleteService(context.Name);
+                    RecupService();
                 }
             }
             RecupService();
