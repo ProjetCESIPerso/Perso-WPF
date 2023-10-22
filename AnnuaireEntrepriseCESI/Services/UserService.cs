@@ -120,6 +120,32 @@ namespace AnnuaireEntrepriseCESI.Services
                 return JsonConvert.DeserializeObject<UserDTO>(json) ?? new UserDTO();
             }
         }
+
+        public async Task<int> GetNbOfAttributionToService(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync($"https://localhost:7089/api/User/GetNbOfAttributionToService/{id}").Result;
+
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<int>(json);
+            }
+        }
+
+        public async Task<int> GetNbOfAttributionToSite(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync($"https://localhost:7089/api/User/GetNbOfAttributionToSite/{id}").Result;
+
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<int>(json);
+            }
+        }
         #endregion
 
         #region Update (Modification)

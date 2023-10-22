@@ -31,6 +31,21 @@ namespace AnnuaireEntrepriseCESI.Interfaces
         Task<UserDTO> GetByName(string name);
 
         /// <summary>
+        /// Récupère le nombre d'attribution d'un service
+        /// </summary>
+        /// <param name="id">ID du service</param>
+        /// <returns>nombre d'attributions</returns>
+        Task<int> GetNbOfAttributionToService(int id);
+
+        /// <summary>
+        /// Récupère le nombre d'attribution d'un site
+        /// </summary>
+        /// <param name="id">ID du site</param>
+        /// <returns>nombre d'attributions</returns>
+        Task<int> GetNbOfAttributionToSite(int id);
+
+
+        /// <summary>
         /// Permet d'ajouter un utilisateur 
         /// </summary>
         /// <param name="site">données de l'utilisateur</param>

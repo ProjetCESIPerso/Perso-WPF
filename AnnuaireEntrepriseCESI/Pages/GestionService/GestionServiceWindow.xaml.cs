@@ -24,10 +24,12 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
     public partial class GestionService : Window
     {
         private readonly IServiceService _serviceService;
+        private readonly IUserService _userService;
 
         public GestionService()
         {
             _serviceService = new ServiceService();
+            _userService = new UserService();
             InitializeComponent();
 
             RecupService();
@@ -96,7 +98,18 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
             var resultMsgBoxDelete = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le service : '" + context!.Name + "' ?", "Confirmer la suppression", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (resultMsgBoxDelete == MessageBoxResult.Yes)
             {
-                _serviceService.DeleteService(context.Name);
+                //Récupération du nombre d'attribution du service à un employé
+                int NbAttribution = _userService.GetNbOfAttributionToService(context!.Id).Result;
+
+                
+                if (NbAttribution > 0)
+                {
+                    MessageBox.Show("Impossible de supprimer le service, il est attribué à " + NbAttribution + " employé(s) !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    _serviceService.DeleteService(context.Name);
+                }
             }
             RecupService();
         }
