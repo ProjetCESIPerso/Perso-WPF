@@ -117,7 +117,7 @@ namespace AnnuaireEntrepriseCESI.Services
             var client = new HttpClient();
             using (var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7089/api/Site/DeleteSite/{town}")) 
             {
-                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
                 if (!send.IsSuccessStatusCode)
                     throw new Exception();
@@ -128,7 +128,5 @@ namespace AnnuaireEntrepriseCESI.Services
         #endregion
 
         #endregion
-
-
     }
 }

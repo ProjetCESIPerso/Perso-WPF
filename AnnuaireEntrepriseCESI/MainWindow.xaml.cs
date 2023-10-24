@@ -4,6 +4,7 @@ using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Pages;
 using AnnuaireEntrepriseCESI.Pages.GestionService;
 using AnnuaireEntrepriseCESI.Pages.GestionSite;
+using AnnuaireEntrepriseCESI.Pages.GestionUser;
 using AnnuaireEntrepriseCESI.Services;
 using System;
 using System.Collections.Generic;
@@ -105,7 +106,8 @@ namespace AnnuaireEntrepriseCESI
 
         private void BtnGestionUserClick(object sender, RoutedEventArgs e)
         {
-
+            GestionUserWindow gestionUser = new GestionUserWindow();
+            gestionUser.ShowDialog();
         }
     }
 }

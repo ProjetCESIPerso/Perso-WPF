@@ -56,8 +56,8 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
 
         private void BtnAddClick(object sender, RoutedEventArgs e)
         {
-            var addService = new AddSiteWindow();
-            var result = addService.ShowDialog();
+            var addSite = new AddSiteWindow();
+            var result = addSite.ShowDialog();
 
             if (result == true)
             {

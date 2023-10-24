@@ -1,25 +1,27 @@
-﻿<Window x:Class="AnnuaireEntrepriseCESI.Pages.GestionSite.GestionSiteWindow"
+﻿<Window x:Class="AnnuaireEntrepriseCESI.Pages.GestionUser.GestionUserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AnnuaireEntrepriseCESI.Pages.GestionSite"
+        xmlns:local="clr-namespace:AnnuaireEntrepriseCESI.Pages.GestionUser"
         mc:Ignorable="d"
-        Title="Gestion des sites" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Gestion des utilisateurs" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Button Content="Retour" Click="BtnBackClick" HorizontalAlignment="Left" Margin="735,52,0,0" VerticalAlignment="Top"/>
-        <Button Content="Ajouter un site" Click="BtnAddClick" HorizontalAlignment="Left" Margin="400,42,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ajouter un utilisateur" Click="BtnAddClick" HorizontalAlignment="Left" Margin="400,42,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Recherche :" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.469,0.614" Height="26" Width="120"/>
-        <DataGrid Name="DataSite" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,77,10,10">
+        <DataGrid Name="DataUser" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,77,10,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="5*" Header="ID" Binding="{Binding Id}" />
-                <DataGridTextColumn Width="5*" Header="Ville" Binding="{Binding Town}" />
+                <DataGridTextColumn Width="5*" Header="Nom" Binding="{Binding Surname}" />
+                <DataGridTextColumn Width="5*" Header="Prénom" Binding="{Binding Name}" />
+                <DataGridTextColumn Width="5*" Header="Mail" Binding="{Binding Email}" />
 
                 <DataGridTemplateColumn Header="Modifier"  Width="1*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="ModifySite" Click="BtnUpdateClick" FontSize="14" >
+                            <Button Name="ModifyUser" Click="BtnUpdateClick" FontSize="14" >
                                 <Image Width="20" Height="20" Source="C:\Users\camil\source\repos\Perso-WPF\AnnuaireEntrepriseCESI\Images\modifier.png" />
                             </Button>
                         </DataTemplate>
@@ -29,7 +31,7 @@
                 <DataGridTemplateColumn Header="Supprimer"  Width="1*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Name="DeleteSite" Click="BtnDeleteClick" FontSize="14" >
+                            <Button Name="DeleteUser" Click="BtnDeleteClick" FontSize="14" >
                                 <Image Width="20" Height="20" Source="C:\Users\camil\source\repos\Perso-WPF\AnnuaireEntrepriseCESI\Images\supprimer.png" />
                             </Button>
                         </DataTemplate>

@@ -174,10 +174,9 @@ namespace AnnuaireEntrepriseCESI.Services
         public async Task DeleteUser(int id)
         {
             var client = new HttpClient();
-            using (var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7089/api/User/DeleteUser/{id}"))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7089/api/User/DeleteUser/{id}"))
             {
-                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
-                    .ConfigureAwait(false);
+                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
                 if (!send.IsSuccessStatusCode)
                     throw new Exception();
