@@ -57,7 +57,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
         private void BtnAddClick(object sender, RoutedEventArgs e)
         {
-            var addUser = new AddSiteWindow();
+            var addUser = new AddUserWindow();
             var result = addUser.ShowDialog();
 
             if (result == true)

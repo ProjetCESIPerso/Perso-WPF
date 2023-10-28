@@ -39,8 +39,7 @@ namespace AnnuaireEntrepriseCESI.Services
                 using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 request.Content = stringContent;
 
-                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
-                    .ConfigureAwait(false);
+                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
                 if (!send.IsSuccessStatusCode)
                     throw new Exception();
