@@ -84,7 +84,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             this.Close();
         }
 
-        private void ModifyUser()
+        private async void ModifyUser()
         {
             User user = new User();
 
@@ -106,7 +106,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
             if (VerifDonnees(user) == true)
             {
-                _userService.UpdateUser(UserId, user);
+                await _userService.UpdateUser(UserId, user);
                 MessageBox.Show("Modification enregistrée", "Modification", MessageBoxButton.OK, MessageBoxImage.Information);
                 DialogResult = true;
             }

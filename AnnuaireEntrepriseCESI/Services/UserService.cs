@@ -107,19 +107,6 @@ namespace AnnuaireEntrepriseCESI.Services
             }
         }
 
-        public async Task<UserDTO> GetByName(string name)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = client.GetAsync($"https://localhost:7089/api/User/GetUserByName/{name}").Result;
-
-                var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<UserDTO>(json) ?? new UserDTO();
-            }
-        }
-
         public async Task<int> GetNbOfAttributionToService(int id)
         {
             using (HttpClient client = new HttpClient())

@@ -24,13 +24,6 @@ namespace AnnuaireEntrepriseCESI.Interfaces
         Task<UserDTO> GetById(int id);
 
         /// <summary>
-        /// Récupère un utilisateur par rapport à son nom
-        /// </summary>
-        /// <param name="name">Nom de l'utilisateur</param>
-        /// <returns>Retourn l'utilisateur</returns>
-        Task<UserDTO> GetByName(string name);
-
-        /// <summary>
         /// Récupère le nombre d'attribution d'un service
         /// </summary>
         /// <param name="id">ID du service</param>
