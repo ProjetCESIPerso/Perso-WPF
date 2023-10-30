@@ -1,4 +1,5 @@
-﻿using AnnuaireEntrepriseCESI.Interfaces;
+﻿using AnnuaireEntrepriseCESI.DTOs;
+using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Services;
 using System;
@@ -26,7 +27,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
         string OldServiceName { get; set; }
         int ServiceId { get; set; }
 
-        public UpdateService(Service service)
+        public UpdateService(ServiceDTO service)
         {
             InitializeComponent();
 
@@ -56,10 +57,10 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
             }
         }
 
-        private void ModifyService()
+        private async void ModifyService()
         {
             //Vérification doublon
-            Service result =  _serviceService.GetById(ServiceId).Result;
+            ServiceDTO result =  _serviceService.GetById(ServiceId).Result;
             if (result.Name == NameService.Text || OldServiceName == NameService.Text)
             {
                 MessageBox.Show($"Le service entré ({NameService.Text}) existe déjà !", "Doublon", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -71,7 +72,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
                     Service service = new Service();
                     service.Name = NameService.Text;
                     service.Id = ServiceId;
-                    _serviceService.UpdateService(OldServiceName, service);
+                    await _serviceService.UpdateService(OldServiceName, service);
                     MessageBox.Show("Modification enregistrée", "Modification", MessageBoxButton.OK, MessageBoxImage.Information);
                     DialogResult = true;
                 }

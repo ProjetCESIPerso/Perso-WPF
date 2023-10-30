@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using AnnuaireEntrepriseCESI.Interfaces;
+using AnnuaireEntrepriseCESI.DTOs;
 
 namespace AnnuaireEntrepriseCESI.Services
 {
@@ -49,7 +50,7 @@ namespace AnnuaireEntrepriseCESI.Services
         #endregion
 
         #region Read (Lecture)
-        public async Task<List<Site>> GetAllSite()
+        public async Task<List<SiteDTO>> GetAllSite()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -58,11 +59,11 @@ namespace AnnuaireEntrepriseCESI.Services
                 HttpResponseMessage response = client.GetAsync($"https://localhost:7089/api/Site/GetAll").Result;
 
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<Site>>(json) ?? new List<Site>();
+                return JsonConvert.DeserializeObject<List<SiteDTO>>(json) ?? new List<SiteDTO>();
             }
         }
 
-        public async Task<Site> GetById(int id)
+        public async Task<SiteDTO> GetById(int id)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -71,11 +72,11 @@ namespace AnnuaireEntrepriseCESI.Services
                 HttpResponseMessage response = client.GetAsync($"https://localhost:7089/api/User/GetSiteById/{id}").Result;
 
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Site>(json) ?? new Site();
+                return JsonConvert.DeserializeObject<SiteDTO>(json) ?? new SiteDTO();
             }
         }
 
-        public async Task<Site> GetByName(string name)
+        public async Task<SiteDTO> GetByName(string name)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -84,7 +85,7 @@ namespace AnnuaireEntrepriseCESI.Services
                 HttpResponseMessage response = client.GetAsync($"https://localhost:7089/api/Site/GetSiteByName/{name}").Result;
 
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Site>(json) ?? new Site();
+                return JsonConvert.DeserializeObject<SiteDTO>(json) ?? new SiteDTO();
             }
         }
         #endregion

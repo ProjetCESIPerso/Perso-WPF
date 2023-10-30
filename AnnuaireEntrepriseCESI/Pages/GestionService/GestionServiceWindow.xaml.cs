@@ -39,7 +39,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
         {
             try
             {
-                List<Service> listService = _serviceService.GetAllService().Result;
+                List<ServiceDTO> listService = _serviceService.GetAllService().Result;
 
                 DataService.ItemsSource = listService;
             }
@@ -51,7 +51,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
 
         private void BtnBackClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DialogResult = true;
         }
 
         private void BtnAddClick(object sender, RoutedEventArgs e)
@@ -73,7 +73,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
         {
             //Affichage d'une form avec la possibilité de modifier l'employée
             var sender_context = sender as Button;
-            var context = sender_context!.DataContext as Service;
+            var context = sender_context!.DataContext as ServiceDTO;
 
             var updateService = new UpdateService(context);
             var result = updateService.ShowDialog();
@@ -88,12 +88,12 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
             }
         }
 
-        private void BtnDeleteClick(object sender, RoutedEventArgs e)
+        private async void BtnDeleteClick(object sender, RoutedEventArgs e)
         {
             //Demander la confirmation de suppression
             var sender_context = sender as Button;
 
-            var context = sender_context!.DataContext as Service;
+            var context = sender_context!.DataContext as ServiceDTO;
 
             var resultMsgBoxDelete = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le service : '" + context!.Name + "' ?", "Confirmer la suppression", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (resultMsgBoxDelete == MessageBoxResult.Yes)
@@ -108,7 +108,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
                 }
                 else
                 {
-                    _serviceService.DeleteService(context.Name);
+                    await _serviceService.DeleteService(context.Name);
                     RecupService();
                 }
             }

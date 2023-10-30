@@ -52,7 +52,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
         private void BtnBackClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DialogResult = true;
         }
 
         private void BtnAddClick(object sender, RoutedEventArgs e)
@@ -100,6 +100,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             if (resultMsgBoxDelete == MessageBoxResult.Yes)
             {
                 await _userService.DeleteUser(context.Id);
+                MessageBox.Show("Utilisateur supprimé", "Suppression", MessageBoxButton.OK, MessageBoxImage.Information);
                 RecupUser();
             }
             RecupUser();

@@ -1,4 +1,5 @@
-﻿using AnnuaireEntrepriseCESI.Interfaces;
+﻿using AnnuaireEntrepriseCESI.DTOs;
+using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Pages.GestionService;
 using AnnuaireEntrepriseCESI.Services;
@@ -39,7 +40,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
         {
             try
             {
-                List<Site> listSite = _siteService.GetAllSite().Result;
+                List<SiteDTO> listSite = _siteService.GetAllSite().Result;
 
                 DataSite.ItemsSource = listSite;
             }
@@ -51,7 +52,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
 
         private void BtnBackClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DialogResult = true;
         }
 
         private void BtnAddClick(object sender, RoutedEventArgs e)
@@ -73,7 +74,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
         {
             //Affichage d'une form avec la possibilité de modifier l'employée
             var sender_context = sender as Button;
-            var context = sender_context!.DataContext as Site;
+            var context = sender_context!.DataContext as SiteDTO;
 
             var updateSite = new UpdateSiteWindow(context);
             var result = updateSite.ShowDialog();
@@ -88,12 +89,12 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
             }
         }
 
-        private void BtnDeleteClick(object sender, RoutedEventArgs e)
+        private async void BtnDeleteClick(object sender, RoutedEventArgs e)
         {
             //Demander la confirmation de suppression
             var sender_context = sender as Button;
 
-            var context = sender_context!.DataContext as Site;
+            var context = sender_context!.DataContext as SiteDTO;
 
             var resultMsgBoxDelete = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le site : '" + context!.Town + "' ?", "Confirmer la suppression", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (resultMsgBoxDelete == MessageBoxResult.Yes)
@@ -108,7 +109,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
                 }
                 else
                 {
-                    _siteService.DeleteSite(context.Town);
+                    await _siteService.DeleteSite(context.Town);
                     RecupSite();
                 }
             }

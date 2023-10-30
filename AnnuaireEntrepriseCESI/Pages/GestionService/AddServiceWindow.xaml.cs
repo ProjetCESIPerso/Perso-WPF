@@ -1,4 +1,5 @@
-﻿using AnnuaireEntrepriseCESI.Interfaces;
+﻿using AnnuaireEntrepriseCESI.DTOs;
+using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Services;
 using System;
@@ -48,10 +49,10 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
             DialogResult = false;
         }
 
-        private void AddService()
+        private async void AddService()
         {
             //Vérification si service inexistant
-            Service result = _serviceService.GetByName(NameService.Text).Result;
+            ServiceDTO result = _serviceService.GetByName(NameService.Text).Result;
 
             if (result.Name == NameService.Text)
             {
@@ -63,7 +64,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
                 {
                     Service serviceToAdd = new();
                     serviceToAdd.Name = NameService.Text;
-                    _serviceService.AddService(serviceToAdd);
+                    await _serviceService.AddService(serviceToAdd);
                     MessageBox.Show("Ajout enregistré", "Modification", MessageBoxButton.OK, MessageBoxImage.Information);
                     DialogResult = true;
                 }

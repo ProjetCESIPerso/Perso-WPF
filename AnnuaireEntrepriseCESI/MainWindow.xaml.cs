@@ -53,9 +53,11 @@ namespace AnnuaireEntrepriseCESI
 
         private void RecupListeSite()
         {
-            List<Site> listSite = _siteService.GetAllSite().Result;
+            List<SiteDTO> listSite = _siteService.GetAllSite().Result;
 
-            foreach (Site site in listSite)
+            SiteComboBox.Items.Clear();
+
+            foreach (SiteDTO site in listSite)
             {
                 SiteComboBox.Items.Add(site.Town);
             }
@@ -63,9 +65,11 @@ namespace AnnuaireEntrepriseCESI
 
         private void RecupListeService()
         {
-            List<Service> listService = _serviceService.GetAllService().Result;
+            List<ServiceDTO> listService = _serviceService.GetAllService().Result;
 
-            foreach (Service service in listService)
+            serviceComboBox.Items.Clear();
+
+            foreach (ServiceDTO service in listService)
             {
                 serviceComboBox.Items.Add(service.Name);
             }
@@ -95,19 +99,34 @@ namespace AnnuaireEntrepriseCESI
         private void BtnGestionServiceClick(object sender, RoutedEventArgs e)
         {
             GestionService gestionService = new GestionService();
-            gestionService.ShowDialog();
+            var result = gestionService.ShowDialog();
+
+            if (result == true || result == false)
+            {
+                RecupListeService();
+            }
         }
 
         private void BtnGestionSiteClick(object sender, RoutedEventArgs e)
         {
             GestionSiteWindow gestionSite = new GestionSiteWindow();
-            gestionSite.ShowDialog();
+            var result = gestionSite.ShowDialog();
+
+            if (result == true || result == false)
+            {
+                RecupListeSite();
+            }
         }
 
         private void BtnGestionUserClick(object sender, RoutedEventArgs e)
         {
             GestionUserWindow gestionUser = new GestionUserWindow();
-            gestionUser.ShowDialog();
+            var result = gestionUser.ShowDialog();
+
+            if (result == true || result == false)
+            {
+                RecupListeUser();
+            }
         }
     }
 }

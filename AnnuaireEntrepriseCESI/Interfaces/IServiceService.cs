@@ -1,4 +1,5 @@
-﻿using AnnuaireEntrepriseCESI.Models;
+﻿using AnnuaireEntrepriseCESI.DTOs;
+using AnnuaireEntrepriseCESI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,21 @@ namespace AnnuaireEntrepriseCESI.Interfaces
         /// Récupère tout les services de l'entreprise
         /// </summary>
         /// <returns>Retourne une liste de service</returns>
-        Task<List<Service>> GetAllService();
+        Task<List<ServiceDTO>> GetAllService();
 
         /// <summary>
         /// Récupère un service par rapport à son ID
         /// </summary>
         /// <param name="id">ID du service</param>
         /// <returns>Retourne le service</returns>
-        Task<Service> GetById(int id);
+        Task<ServiceDTO> GetById(int id);
 
         /// <summary>
         /// Récupère un service par rapport à son nom
         /// </summary>
         /// <param name="name">Nom du service</param>
         /// <returns>Retourn le service</returns>
-        Task<Service> GetByName(string name);
+        Task<ServiceDTO> GetByName(string name);
 
         /// <summary>
         /// Permet d'ajouter un service 

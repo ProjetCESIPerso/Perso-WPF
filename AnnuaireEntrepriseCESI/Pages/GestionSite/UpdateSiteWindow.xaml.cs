@@ -1,4 +1,5 @@
-﻿using AnnuaireEntrepriseCESI.Interfaces;
+﻿using AnnuaireEntrepriseCESI.DTOs;
+using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Services;
 using System;
@@ -26,7 +27,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
         string OldSiteName { get; set; }
         int SiteId { get; set; }
 
-        public UpdateSiteWindow(Site site)
+        public UpdateSiteWindow(SiteDTO site)
         {
             InitializeComponent();
 
@@ -56,10 +57,10 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
             }
         }
 
-        private void ModifySite()
+        private async void ModifySite()
         {
             //Vérification doublon
-            Site result = _siteService.GetById(SiteId).Result;
+            SiteDTO result = _siteService.GetById(SiteId).Result;
             if (result.Town == NameSite.Text || OldSiteName == NameSite.Text)
             {
                 MessageBox.Show($"Le site entré ({NameSite.Text}) existe déjà !", "Doublon", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -71,7 +72,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
                     Site site = new Site();
                     site.Town = NameSite.Text;
                     site.Id = SiteId;
-                    _siteService.UpdateSite(OldSiteName, site);
+                    await _siteService.UpdateSite(OldSiteName, site);
                     MessageBox.Show("Modification enregistrée", "Modification", MessageBoxButton.OK, MessageBoxImage.Information);
                     DialogResult = true;
                 }

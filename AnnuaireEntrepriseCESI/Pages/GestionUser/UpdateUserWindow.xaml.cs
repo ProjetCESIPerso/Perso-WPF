@@ -57,15 +57,15 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
         private void RecupListeSiteEtService()
         {
-            List<Site> listSites = _siteService.GetAllSite().Result;
-            List<Service> listServices = _serviceService.GetAllService().Result;
+            List<SiteDTO> listSites = _siteService.GetAllSite().Result;
+            List<ServiceDTO> listServices = _serviceService.GetAllService().Result;
 
-            foreach (Site site in listSites)
+            foreach (SiteDTO site in listSites)
             {
                 SiteUser.Items.Add(site.Town);
             }
 
-            foreach (Service service in listServices)
+            foreach (ServiceDTO service in listServices)
             {
                 ServiceUser.Items.Add(service.Name);
             }
@@ -96,12 +96,24 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
             if (SiteName != SiteUser.SelectedValue)
             {
-                user.SiteId = _siteService.GetByName(SiteUser.SelectedValue.ToString()).Id;
+                SiteDTO site = _siteService.GetByName(SiteUser.SelectedValue.ToString()).Result;
+                user.SiteId = site.Id;
+            }
+            else
+            {
+                UserDTO userBDD = _userService.GetById(UserId).Result;
+                user.SiteId = userBDD.SiteId;
             }
 
             if (ServiceName != ServiceUser.SelectedValue) 
             {
-                user.ServiceId = _serviceService.GetByName(ServiceUser.SelectedValue.ToString()).Id;
+                ServiceDTO service = _serviceService.GetByName(ServiceUser.SelectedValue.ToString()).Result;
+                user.ServiceId = service.Id;
+            }
+            else
+            {
+                UserDTO userBDD = _userService.GetById(UserId).Result;
+                user.ServiceId = userBDD.ServiceId;
             }
 
             if (VerifDonnees(user) == true)

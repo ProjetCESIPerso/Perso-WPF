@@ -1,4 +1,5 @@
-﻿using AnnuaireEntrepriseCESI.Interfaces;
+﻿using AnnuaireEntrepriseCESI.DTOs;
+using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Services;
 using System;
@@ -49,16 +50,16 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
         public void RecupListes()
         {
-            List<Site> listSite = _siteService.GetAllSite().Result;
+            List<SiteDTO> listSite = _siteService.GetAllSite().Result;
 
-            List<Service> listService = _serviceService.GetAllService().Result;
+            List<ServiceDTO> listService = _serviceService.GetAllService().Result;
 
-            foreach (Site item in listSite)
+            foreach (SiteDTO item in listSite)
             {
                 SiteUser.Items.Add(item.Town);
             }
 
-            foreach (Service item in listService)
+            foreach (ServiceDTO item in listService)
             {
                 ServiceUser.Items.Add(item.Name);
             }
@@ -69,8 +70,8 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             if (VerifDonnees() == true)
             {
                 User user = new User();
-                Site site = _siteService.GetByName(SiteUser.SelectedValue.ToString()).Result;
-                Service service = _serviceService.GetByName(ServiceUser.SelectedValue.ToString()).Result;
+                SiteDTO site = _siteService.GetByName(SiteUser.SelectedValue.ToString()).Result;
+                ServiceDTO service = _serviceService.GetByName(ServiceUser.SelectedValue.ToString()).Result;
 
                 user.Name = NameUser.Text;
                 user.Surname = SurnameUser.Text;

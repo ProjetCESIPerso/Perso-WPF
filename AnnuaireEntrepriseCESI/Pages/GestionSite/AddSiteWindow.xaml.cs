@@ -1,4 +1,5 @@
-﻿using AnnuaireEntrepriseCESI.Interfaces;
+﻿using AnnuaireEntrepriseCESI.DTOs;
+using AnnuaireEntrepriseCESI.Interfaces;
 using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Services;
 using System;
@@ -48,14 +49,14 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
             DialogResult = false;
         }
 
-        private void AddSite()
+        private async void AddSite()
         {
             //Vérification si service inexistant
-            Site result = _siteService.GetByName(NameSite.Text).Result;
+            SiteDTO result = _siteService.GetByName(NameSite.Text).Result;
 
             if (result.Town == NameSite.Text)
             {
-                MessageBox.Show($"Le service ({NameSite.Text}) existe déjà !", "Doublon", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Le site ({NameSite.Text}) existe déjà !", "Doublon", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -63,7 +64,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
                 {
                     Site siteToAdd = new();
                     siteToAdd.Town = NameSite.Text;
-                    _siteService.AddSite(siteToAdd);
+                    await _siteService.AddSite(siteToAdd);
                     MessageBox.Show("Ajout enregistré", "Modification", MessageBoxButton.OK, MessageBoxImage.Information);
                     DialogResult = true;
                 }
