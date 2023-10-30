@@ -20,18 +20,20 @@
 
             <!-- ComboBox 1 -->
             <Label Content="Service :" VerticalAlignment="Bottom" Width="100" Padding="0, 0" Margin="217,0,573,32" />
-            <ComboBox Name="serviceComboBox" Width="150" Height="22" Margin="216,28,524,10">
+            <ComboBox Name="serviceComboBox" SelectionChanged="SearchServiceChanged" Width="150" Height="22" Margin="216,28,524,10">
                 <!-- Ajoutez ici les éléments de votre ComboBox 1 -->
             </ComboBox>
 
             <!-- ComboBox 2 -->
             <Label Content="Site :" VerticalAlignment="Top" Width="100"  Padding="0, 0" Margin="373,12,417,0"/>
-            <ComboBox Name="SiteComboBox" Width="150" Height="22" Margin="373,28,367,10">
+            <ComboBox Name="SiteComboBox" SelectionChanged="SearchSiteChanged" Width="150" Height="22" Margin="373,28,367,10">
                 <!-- Ajoutez ici les éléments de votre ComboBox 2 -->
             </ComboBox>
-            <Button Name="BtnGestionUser" Click="BtnGestionUserClick" Content="Gestion utilisateur" HorizontalAlignment="Left" Margin="542,0,0,0" VerticalAlignment="Top" Width="109" Visibility="Hidden"/>
-            <Button Name="BtnGestionService" Click="BtnGestionServiceClick" Content="Gestion service" HorizontalAlignment="Left" Margin="542,0,0,0" VerticalAlignment="Center" Width="109" Visibility="Hidden"/>
-            <Button Name="BtnGestionSite" Click="BtnGestionSiteClick" Content="Gestion site" HorizontalAlignment="Left" Margin="542,39,0,0" VerticalAlignment="Top" Width="109" Visibility="Hidden"/>
+            <Button Content="Recherche" Click="SearchBarClicked" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Margin="0,0,288,12"/>
+            
+            <Button Name="BtnGestionUser" Click="BtnGestionUserClick" Content="Gestion utilisateur" HorizontalAlignment="Left" Margin="630,0,0,0" VerticalAlignment="Top" Width="109" Visibility="Hidden"/>
+            <Button Name="BtnGestionService" Click="BtnGestionServiceClick" Content="Gestion service" HorizontalAlignment="Left" Margin="630,0,0,0" VerticalAlignment="Center" Width="109" Visibility="Hidden" />
+            <Button Name="BtnGestionSite" Click="BtnGestionSiteClick" Content="Gestion site" HorizontalAlignment="Left" Margin="630,39,0,0" VerticalAlignment="Top" Width="109" Visibility="Hidden"/>
 
             <Button Content="Quitter" Click="BtnQuitClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Margin="810,30,0,0"/>
         </Grid>

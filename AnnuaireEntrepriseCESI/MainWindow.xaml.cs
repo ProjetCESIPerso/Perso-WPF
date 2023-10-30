@@ -75,6 +75,61 @@ namespace AnnuaireEntrepriseCESI
             }
         }
 
+        private void SearchBarClicked(object sender, EventArgs e)
+        {
+            UserFiltres(RechercheTextBox.Text);
+        }
+
+        private void UserFiltres(string recherche)
+        {
+            List<UserDTO> listUser = _userService.GetAllUsers().Result;
+
+            List<UserDTO> listUserFiltre = new List<UserDTO>();
+
+            foreach (UserDTO user in listUser)
+            {
+                if (user.Name.Contains(recherche) || user.Surname.Contains(recherche) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche))
+                {
+                    listUserFiltre.Add(user);
+                }
+            }
+
+            dataGrid.ItemsSource = listUserFiltre;
+        }
+
+        private void SearchSiteChanged(object sender, EventArgs e)
+        {
+            List<UserDTO> listUser = _userService.GetAllUsers().Result;
+
+            List<UserDTO> listUserFiltre = new List<UserDTO>();
+
+            foreach (UserDTO user in listUser)
+            {
+                if (user.SiteName == SiteComboBox.SelectedValue.ToString())
+                {
+                    listUserFiltre.Add(user);
+                }
+            }
+
+            dataGrid.ItemsSource = listUserFiltre;
+        }
+
+        private void SearchServiceChanged(object sender, EventArgs e)
+        {
+            List<UserDTO> listUser = _userService.GetAllUsers().Result;
+
+            List<UserDTO> listUserFiltre = new List<UserDTO>();
+
+            foreach (UserDTO user in listUser)
+            {
+                if (user.ServiceName == serviceComboBox.SelectedValue.ToString())
+                {
+                    listUserFiltre.Add(user);
+                }
+            }
+
+            dataGrid.ItemsSource = listUserFiltre;
+        }
         private void BtnQuitClick(object sender, RoutedEventArgs e)
         {
             Close();

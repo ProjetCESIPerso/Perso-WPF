@@ -4,6 +4,7 @@ using AnnuaireEntrepriseCESI.Models;
 using AnnuaireEntrepriseCESI.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,28 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionService
             {
                 MessageBox.Show($"Une erreur est survenue lors de la récupération de la liste des services \nErreur : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void SearchClick(object sender, RoutedEventArgs e)
+        {
+            RecupServiceFiltre(searchBarService.Text);
+        }
+
+        private void RecupServiceFiltre(string text)
+        {
+            List<ServiceDTO> listService = _serviceService.GetAllService().Result;
+
+            List<ServiceDTO> listServiceFiltre = new List<ServiceDTO>();
+
+            foreach (ServiceDTO item in listService)
+            {
+                if (item.Name.ToLower().Contains(text.ToLower()))
+                {
+                    listServiceFiltre.Add(item);
+                }
+            }
+
+            DataService.ItemsSource = listServiceFiltre;
         }
 
         private void BtnBackClick(object sender, RoutedEventArgs e)

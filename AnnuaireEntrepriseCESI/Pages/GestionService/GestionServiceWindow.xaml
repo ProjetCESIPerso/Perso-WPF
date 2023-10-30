@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="GestionService" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Content="Retour" Click="BtnBackClick" HorizontalAlignment="Left" Margin="735,52,0,0" VerticalAlignment="Top"/>
-        <Button Content="Ajouter un service" Click="BtnAddClick" HorizontalAlignment="Left" Margin="400,42,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Recherche :" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.469,0.614" Height="26" Width="120"/>
+        <TextBox Name="searchBarService" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Recherche" Click="SearchClick" HorizontalAlignment="Left" Margin="135,42,0,0" VerticalAlignment="Top"/>
+        
+        <Button Content="Ajouter un service" Click="BtnAddClick" HorizontalAlignment="Left" Margin="400,42,0,0" VerticalAlignment="Top"/>
+        
         <DataGrid Name="DataService" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,77,10,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="5*" Header="ID" Binding="{Binding Id}" />
@@ -38,5 +40,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <Button Content="Retour" Click="BtnBackClick" HorizontalAlignment="Left" Margin="735,52,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

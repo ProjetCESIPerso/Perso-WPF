@@ -50,6 +50,28 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
             }
         }
 
+        private void SearchClick(object sender, RoutedEventArgs e)
+        {
+            RecupSiteFiltre(searchBarSite.Text);
+        }
+
+        private void RecupSiteFiltre(string text)
+        {
+            List<SiteDTO> listSite = _siteService.GetAllSite().Result;
+
+            List<SiteDTO> listSiteFiltre = new List<SiteDTO>();
+
+            foreach (SiteDTO item in listSite)
+            {
+                if (item.Town.ToLower().Contains(text.ToLower()))
+                {
+                    listSiteFiltre.Add(item);
+                }
+            }
+
+            DataSite.ItemsSource = listSiteFiltre;
+        }
+
         private void BtnBackClick(object sender, RoutedEventArgs e)
         {
             DialogResult = true;

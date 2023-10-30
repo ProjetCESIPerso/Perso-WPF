@@ -50,6 +50,28 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             }
         }
 
+        private void SearchClick(object sender, RoutedEventArgs e)
+        {
+            UserFiltres(searchBar.Text);
+        }
+
+        private void UserFiltres(string recherche)
+        {
+            List<UserDTO> listUser = _userService.GetAllUsers().Result;
+
+            List<UserDTO> listUserFiltre = new List<UserDTO>();
+
+            foreach (UserDTO user in listUser)
+            {
+                if (user.Name.Contains(recherche) || user.Surname.Contains(recherche) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche))
+                {
+                    listUserFiltre.Add(user);
+                }
+            }
+
+            DataUser.ItemsSource = listUserFiltre;
+        }
+
         private void BtnBackClick(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
