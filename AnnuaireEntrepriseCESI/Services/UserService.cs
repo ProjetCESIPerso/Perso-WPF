@@ -66,14 +66,6 @@ namespace AnnuaireEntrepriseCESI.Services
 
                 foreach (var item in listeUser)
                 {
-                    response = client.GetAsync($"https://localhost:7089/api/Service/GetServiceById/{item.ServiceId}").Result;
-                    json = await response.Content.ReadAsStringAsync();
-                    Service serviceUser = JsonConvert.DeserializeObject<Service>(json) ?? new Service();
-
-                    response = client.GetAsync($"https://localhost:7089/api/Site/GetSiteById/{item.SiteId}").Result;
-                    json = await response.Content.ReadAsStringAsync();
-                    Site siteUser = JsonConvert.DeserializeObject<Site>(json) ?? new Site();
-
                     users.Add(new UserDTO() 
                     {
                         Id = item.Id,
@@ -84,8 +76,8 @@ namespace AnnuaireEntrepriseCESI.Services
                         PhoneNumber = item.PhoneNumber,
                         ServiceId = item.ServiceId,
                         SiteId = item.SiteId,
-                        ServiceName = serviceUser.Name,
-                        SiteName = siteUser.Town
+                        Service = item.Service,
+                        Site = item.Site
                  
                     });
                 }

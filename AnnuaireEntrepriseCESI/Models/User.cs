@@ -17,4 +17,7 @@ public partial class User
     public int ServiceId { get; set; }
 
     public int SiteId { get; set; }
+
+    public Site Site { get; set; }  
+    public Service Service { get; set; }
 }

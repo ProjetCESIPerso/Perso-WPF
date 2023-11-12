@@ -38,8 +38,8 @@
                 <DataGridTextColumn Header="Email" Binding="{Binding Mail}" />
                 <DataGridTextColumn Header="Téléphone fixe" Binding="{Binding PhoneNumber}" />
                 <DataGridTextColumn Header="Téléphone mobile" Binding="{Binding MobilePhone}" />
-                <DataGridTextColumn Header="Service" Binding="{Binding ServiceName}" />
-                <DataGridTextColumn Header="Site" Binding="{Binding SiteName}" />
+                <DataGridTextColumn Header="Service" Binding="{Binding Service.Name}" />
+                <DataGridTextColumn Header="Site" Binding="{Binding Site.Town}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
