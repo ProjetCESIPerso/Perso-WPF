@@ -64,7 +64,7 @@ namespace AnnuaireEntrepriseCESI
             {
                 foreach (UserDTO user in listUser)
                 {
-                    if (user.Name.ToLower().Contains(recherche.ToLower()) || user.Surname.ToLower().Contains(recherche.ToLower()) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche) || user.ServiceName.ToLower().Contains(recherche.ToLower()) || user.SiteName.ToLower().Contains(recherche.ToLower()))
+                    if (user.Name.ToLower().Contains(recherche.ToLower()) || user.Surname.ToLower().Contains(recherche.ToLower()) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche) || user.Service.Name.ToLower().Contains(recherche.ToLower()) || user.Site.Town.ToLower().Contains(recherche.ToLower()))
                     {
                         listUserFiltre.Add(user);
                     }
