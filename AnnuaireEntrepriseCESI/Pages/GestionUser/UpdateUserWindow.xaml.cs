@@ -49,8 +49,8 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             PhoneNumber.DataContext = userDTO;
             MobilePhone.DataContext = userDTO;
 
-            ServiceName = userDTO.ServiceName;
-            SiteName = userDTO.SiteName;
+            ServiceName = userDTO.Service.Name;
+            SiteName = userDTO.Site.Town;
 
             RecupListeSiteEtService();
         }
