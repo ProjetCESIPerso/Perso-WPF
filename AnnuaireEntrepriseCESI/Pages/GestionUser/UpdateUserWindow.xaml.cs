@@ -96,24 +96,37 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
             if (SiteName != SiteUser.SelectedValue)
             {
-                SiteDTO site = _siteService.GetByName(SiteUser.SelectedValue.ToString()).Result;
-                user.SiteId = site.Id;
+                SiteDTO siteDTO = _siteService.GetByName(SiteUser.SelectedValue.ToString()).Result;
+                Site site = new Site();
+                site.Id = siteDTO.Id;
+                site.Town = siteDTO.Town;
+
+                user.SiteId = siteDTO.Id;
+                user.Site = site;
             }
             else
             {
                 UserDTO userBDD = _userService.GetById(UserId).Result;
+
                 user.SiteId = userBDD.SiteId;
+                user.Site = userBDD.Site;
             }
 
             if (ServiceName != ServiceUser.SelectedValue) 
             {
-                ServiceDTO service = _serviceService.GetByName(ServiceUser.SelectedValue.ToString()).Result;
-                user.ServiceId = service.Id;
+                ServiceDTO serviceDTO = _serviceService.GetByName(ServiceUser.SelectedValue.ToString()).Result;
+                Service service = new Service();
+                service.Id = serviceDTO.Id;
+                service.Name = serviceDTO.Name;
+
+                user.ServiceId = serviceDTO.Id;
+                user.Service = service;
             }
             else
             {
                 UserDTO userBDD = _userService.GetById(UserId).Result;
                 user.ServiceId = userBDD.ServiceId;
+                user.Service = userBDD.Service;
             }
 
             if (VerifDonnees(user) == true)
