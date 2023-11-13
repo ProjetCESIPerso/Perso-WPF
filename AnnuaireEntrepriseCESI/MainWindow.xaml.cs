@@ -23,6 +23,10 @@ namespace AnnuaireEntrepriseCESI
         private readonly IServiceService _serviceService;
         private readonly ISiteService _siteService;
 
+        public List<UserDTO> listUser { get; set; } = new List<UserDTO>();
+
+        public List<UserDTO> listUserFiltre { get; set; } = new List<UserDTO>();
+
         public MainWindow()
         {
             _userService = new UserService();
@@ -31,17 +35,15 @@ namespace AnnuaireEntrepriseCESI
             InitializeComponent();
 
             RecupListeUser();
-
-            RecupListeService();
-
-            RecupListeSite();
         }
 
         private void RecupListeUser()
         {
             try
             {
-                List<UserDTO> listUser = _userService.GetAllUsers().Result;
+                listUser.Clear();
+
+                listUser = _userService.GetAllUsers().Result;
 
                 dataGrid.ItemsSource = listUser;
             }
@@ -51,27 +53,29 @@ namespace AnnuaireEntrepriseCESI
             }
         }
 
-        private void RecupListeSite()
+        private void SearchBarClicked(object sender, EventArgs e)
         {
-            List<SiteDTO> listSite = _siteService.GetAllSite().Result;
-
-            SiteComboBox.Items.Clear();
-
-            foreach (SiteDTO site in listSite)
-            {
-                SiteComboBox.Items.Add(site.Town);
-            }
+            UserFiltres(RechercheTextBox.Text);
         }
 
-        private void RecupListeService()
+        private void UserFiltres(string recherche)
         {
-            List<ServiceDTO> listService = _serviceService.GetAllService().Result;
-
-            serviceComboBox.Items.Clear();
-
-            foreach (ServiceDTO service in listService)
+            if (recherche.Length > 0)
             {
-                serviceComboBox.Items.Add(service.Name);
+                foreach (UserDTO user in listUser)
+                {
+                    if (user.Name.ToLower().Contains(recherche.ToLower()) || user.Surname.ToLower().Contains(recherche.ToLower()) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche) || user.Service.Name.ToLower().Contains(recherche.ToLower()) || user.Site.Town.ToLower().Contains(recherche.ToLower()))
+                    {
+                        listUserFiltre.Add(user);
+                    }
+                }
+
+                dataGrid.ItemsSource = listUserFiltre;
+            }
+            else
+            {
+                RecupListeUser();
+                listUserFiltre.Clear();
             }
         }
 
@@ -99,23 +103,13 @@ namespace AnnuaireEntrepriseCESI
         private void BtnGestionServiceClick(object sender, RoutedEventArgs e)
         {
             GestionService gestionService = new GestionService();
-            var result = gestionService.ShowDialog();
-
-            if (result == true || result == false)
-            {
-                RecupListeService();
-            }
+            gestionService.ShowDialog();
         }
 
         private void BtnGestionSiteClick(object sender, RoutedEventArgs e)
         {
             GestionSiteWindow gestionSite = new GestionSiteWindow();
-            var result = gestionSite.ShowDialog();
-
-            if (result == true || result == false)
-            {
-                RecupListeSite();
-            }
+            gestionSite.ShowDialog();
         }
 
         private void BtnGestionUserClick(object sender, RoutedEventArgs e)
