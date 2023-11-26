@@ -8,6 +8,7 @@ using AnnuaireEntrepriseCESI.Pages.GestionUser;
 using AnnuaireEntrepriseCESI.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,6 +28,10 @@ namespace AnnuaireEntrepriseCESI
 
         public List<UserDTO> listUserFiltre { get; set; } = new List<UserDTO>();
 
+        public List<ServiceDTO> listService { get; set; } = new List<ServiceDTO>();
+
+        public List<SiteDTO> listSite { get; set; } = new List<SiteDTO>();
+
         public MainWindow()
         {
             _userService = new UserService();
@@ -35,6 +40,136 @@ namespace AnnuaireEntrepriseCESI
             InitializeComponent();
 
             RecupListeUser();
+
+            RecupListeService();
+
+            RecupListeSite();
+        }
+
+        private void RecupListeService()
+        {
+            listService = _serviceService.GetAllService().Result;
+
+            ComboBoxService.Items.Clear();
+
+            ComboBoxService.Items.Add("");
+
+            ComboBoxService.SelectedItem = 0;
+
+            foreach (var item in listService)
+            {
+                ComboBoxService.Items.Add(item.Name);
+            }
+        }
+
+        private void ComboBoxService_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ComboBoxService.SelectedItem.ToString().Length > 0)
+            {
+                if (listUserFiltre.Count() == 0)
+                {
+                    foreach (UserDTO user in listUser)
+                    {
+                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()))
+                        {
+                            listUserFiltre.Add(user);
+                        }
+                    }
+
+                    dataGrid.ItemsSource = listUserFiltre;
+                }
+                else
+                {
+                    List<UserDTO> listUserReFiltree = new List<UserDTO>();
+
+                    listUserReFiltree.Clear();
+
+                    foreach (UserDTO user in listUserFiltre)
+                    {
+                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()))
+                        {
+                            listUserReFiltree.Add(user);
+                        }
+                    }
+
+                    dataGrid.ItemsSource = listUserReFiltree;
+
+                    listUserFiltre.Clear(); 
+                }  
+            }
+            else
+            {
+                RecupListeUser();
+                listUserFiltre.Clear();
+            }
+        }
+
+        private void RecupListeSite()
+        {
+            listSite = _siteService.GetAllSite().Result;
+
+            ComboBoxSite.Items.Clear();
+
+            ComboBoxSite.Items.Add("");
+
+            ComboBoxSite.SelectedItem = 0;
+
+            foreach (var item in listSite)
+            {
+                ComboBoxSite.Items.Add(item.Town);
+            }
+        }
+
+        private void ComboBoxSite_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ComboBoxSite.SelectedItem.ToString().Length > 0)
+            {
+                if (listUserFiltre.Count() == 0)
+                {
+                    foreach (UserDTO user in listUser)
+                    {
+                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()))
+                        {
+                            listUserFiltre.Add(user);
+                        }
+                    }
+
+                    dataGrid.ItemsSource = listUserFiltre;
+                }
+                else
+                {
+                    List<UserDTO> listUserReFiltree = new List<UserDTO>();
+
+                    listUserReFiltree.Clear();
+
+                    foreach (UserDTO user in listUserFiltre)
+                    {
+                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()))
+                        {
+                            listUserReFiltree.Add(user);
+                        }
+                    }
+
+                    dataGrid.ItemsSource = listUserReFiltree;
+
+                    listUserFiltre.Clear();
+                }
+
+                foreach (UserDTO user in listUser)
+                {
+                    if (user.Site.Town.Contains(ComboBoxSite.SelectedItem.ToString()))
+                    {
+                        listUserFiltre.Add(user);
+                    }
+                }
+
+                dataGrid.ItemsSource = listUserFiltre;
+            }
+            else
+            {
+                RecupListeUser();
+                listUserFiltre.Clear();
+            }
         }
 
         private void RecupListeUser()

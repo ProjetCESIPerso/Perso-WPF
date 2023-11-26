@@ -18,14 +18,14 @@
             <Label Name="_Recherche" Content="Recherche :" VerticalAlignment="Bottom" Target="{Binding ElementName=RechercheTextBox}" Padding="0, 0" Width="100" Margin="11,0,779,32"/>
             <TextBox Name="RechercheTextBox" Width="200" Height="22" Margin="11,28,679,10"/>
 
-            <!-- ComboBox 1 -->
-
-            <!-- ComboBox 2 -->
             <Button Content="Recherche" Click="SearchBarClicked" HorizontalAlignment="Left" VerticalAlignment="Top" Width="70" Margin="220,28,0,0"/>
 
             <Button Name="BtnGestionUser" Click="BtnGestionUserClick" Content="Gestion utilisateur" HorizontalAlignment="Left" Margin="630,0,0,0" VerticalAlignment="Top" Width="109" Visibility="Hidden"/>
             <Button Name="BtnGestionService" Click="BtnGestionServiceClick" Content="Gestion service" HorizontalAlignment="Left" Margin="630,0,0,0" VerticalAlignment="Center" Width="109" Visibility="Hidden" />
             <Button Name="BtnGestionSite" Click="BtnGestionSiteClick" Content="Gestion site" HorizontalAlignment="Left" Margin="630,39,0,0" VerticalAlignment="Top" Width="109" Visibility="Hidden"/>
+
+            <ComboBox Name="ComboBoxService" SelectionChanged="ComboBoxService_SelectionChanged" Height="21" HorizontalAlignment="Left" Margin="309,7,0,0" VerticalAlignment="Top" Width="120"/>
+            <ComboBox Name="ComboBoxSite" SelectionChanged="ComboBoxSite_SelectionChanged" Height="21" HorizontalAlignment="Left" Margin="309,34,0,0" VerticalAlignment="Top" Width="120"/>
 
             <Button Content="Quitter" Click="BtnQuitClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Margin="810,30,0,0"/>
         </Grid>
