@@ -35,7 +35,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Surname}" />
                 <DataGridTextColumn Header="Prénom" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Email" Binding="{Binding Mail}" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
                 <DataGridTextColumn Header="Téléphone fixe" Binding="{Binding PhoneNumber}" />
                 <DataGridTextColumn Header="Téléphone mobile" Binding="{Binding MobilePhone}" />
                 <DataGridTextColumn Header="Service" Binding="{Binding Service.Name}" />

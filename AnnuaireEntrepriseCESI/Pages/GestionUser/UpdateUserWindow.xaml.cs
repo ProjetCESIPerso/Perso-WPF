@@ -96,7 +96,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
             if (SiteName != SiteUser.SelectedValue)
             {
-                SiteDTO siteDTO = _siteService.GetByName(SiteUser.SelectedValue.ToString()).Result;
+                SiteDTO siteDTO = await _siteService.GetByName(SiteUser.SelectedValue.ToString());
                 Site site = new Site();
                 site.Id = siteDTO.Id;
                 site.Town = siteDTO.Town;
@@ -106,7 +106,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             }
             else
             {
-                UserDTO userBDD = _userService.GetById(UserId).Result;
+                UserDTO userBDD = await _userService.GetById(UserId);
 
                 user.SiteId = userBDD.SiteId;
                 user.Site = userBDD.Site;
@@ -114,7 +114,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
 
             if (ServiceName != ServiceUser.SelectedValue) 
             {
-                ServiceDTO serviceDTO = _serviceService.GetByName(ServiceUser.SelectedValue.ToString()).Result;
+                ServiceDTO serviceDTO = await _serviceService.GetByName(ServiceUser.SelectedValue.ToString());
                 Service service = new Service();
                 service.Id = serviceDTO.Id;
                 service.Name = serviceDTO.Name;
@@ -124,7 +124,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             }
             else
             {
-                UserDTO userBDD = _userService.GetById(UserId).Result;
+                UserDTO userBDD = await _userService.GetById(UserId);
                 user.ServiceId = userBDD.ServiceId;
                 user.Service = userBDD.Service;
             }

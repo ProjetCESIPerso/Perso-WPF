@@ -36,11 +36,11 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             RecupUser();
         }
 
-        private void RecupUser()
+        private async void RecupUser()
         {
             try
             {
-                List<UserDTO> listUser = _userService.GetAllUsers().Result;
+                List<UserDTO> listUser = await _userService.GetAllUsers();
 
                 DataUser.ItemsSource = listUser;
             }
@@ -55,9 +55,9 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionUser
             UserFiltres(searchBar.Text);
         }
 
-        private void UserFiltres(string recherche)
+        private async void UserFiltres(string recherche)
         {
-            List<UserDTO> listUser = _userService.GetAllUsers().Result;
+            List<UserDTO> listUser = await _userService.GetAllUsers();
 
             List<UserDTO> listUserFiltre = new List<UserDTO>();
 

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Security.Policy;
 using AnnuaireEntrepriseCESI.DTOs;
 using Site = AnnuaireEntrepriseCESI.Models.Site;
+using System.Xml.Linq;
 
 namespace AnnuaireEntrepriseCESI.Services
 {
@@ -137,8 +138,7 @@ namespace AnnuaireEntrepriseCESI.Services
                 using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 request.Content = stringContent;
 
-                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
-                    .ConfigureAwait(false);
+                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
                 if (!send.IsSuccessStatusCode)
                     throw new Exception();
@@ -151,15 +151,14 @@ namespace AnnuaireEntrepriseCESI.Services
         #region Delete (Suppression)
         public async Task DeleteUser(int id)
         {
-            var client = new HttpClient();
-            using (var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7089/api/User/DeleteUser/{id}"))
+            using (HttpClient client = new HttpClient())
             {
-                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7089/api/User/DeleteUser/{id}");
 
-                if (!send.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                     throw new Exception();
 
-                var response = send.EnsureSuccessStatusCode();
+                var result = response.EnsureSuccessStatusCode();
             }
         }
         #endregion

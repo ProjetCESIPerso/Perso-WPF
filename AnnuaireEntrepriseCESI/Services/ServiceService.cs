@@ -115,15 +115,14 @@ namespace AnnuaireEntrepriseCESI.Services
         #region Delete (Suppression)
         public async Task DeleteService(string name)
         {
-            var client = new HttpClient();
-            using (var request = new HttpRequestMessage(HttpMethod.Post, $"https://localhost:7089/api/Service/DeleteService/{name}"))
+            using (HttpClient client = new HttpClient())
             {
-                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7089/api/Service/DeleteService/{name}");
 
-                if (!send.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                     throw new Exception();
 
-                var response = send.EnsureSuccessStatusCode();
+                var result = response.EnsureSuccessStatusCode();
             }
         }
         #endregion

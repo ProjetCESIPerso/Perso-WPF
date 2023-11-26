@@ -46,9 +46,9 @@ namespace AnnuaireEntrepriseCESI
             RecupListeSite();
         }
 
-        private void RecupListeService()
+        private async void RecupListeService()
         {
-            listService = _serviceService.GetAllService().Result;
+            listService = await _serviceService.GetAllService();
 
             ComboBoxService.Items.Clear();
 
@@ -64,9 +64,11 @@ namespace AnnuaireEntrepriseCESI
 
         private void ComboBoxService_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (ComboBoxService.SelectedItem.ToString().Length > 0)
+            listUserFiltre.Clear();
+
+            if (ComboBoxService.SelectedItem != null || ComboBoxService.SelectedItem.ToString().Length > 0)
             {
-                if (listUserFiltre.Count() == 0)
+                if (ComboBoxSite.SelectedItem == null || ComboBoxSite.SelectedItem.ToString().Length == 0)
                 {
                     foreach (UserDTO user in listUser)
                     {
@@ -75,32 +77,25 @@ namespace AnnuaireEntrepriseCESI
                             listUserFiltre.Add(user);
                         }
                     }
-
-                    dataGrid.ItemsSource = listUserFiltre;
                 }
                 else
                 {
-                    List<UserDTO> listUserReFiltree = new List<UserDTO>();
-
-                    listUserReFiltree.Clear();
-
-                    foreach (UserDTO user in listUserFiltre)
+                    foreach (UserDTO user in listUser)
                     {
-                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()))
+                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()) && user.Site.Town.Contains(ComboBoxSite.SelectedItem.ToString()))
                         {
-                            listUserReFiltree.Add(user);
+                            listUserFiltre.Add(user);
                         }
                     }
+                }
 
-                    dataGrid.ItemsSource = listUserReFiltree;
+                dataGrid.ItemsSource = null;
 
-                    listUserFiltre.Clear(); 
-                }  
+                dataGrid.ItemsSource = listUserFiltre;
             }
             else
             {
                 RecupListeUser();
-                listUserFiltre.Clear();
             }
         }
 
@@ -122,53 +117,38 @@ namespace AnnuaireEntrepriseCESI
 
         private void ComboBoxSite_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (ComboBoxSite.SelectedItem.ToString().Length > 0)
+            listUserFiltre.Clear();
+      
+            if (ComboBoxSite.SelectedItem != null || ComboBoxSite.SelectedItem.ToString().Length > 0)
             {
-                if (listUserFiltre.Count() == 0)
+                if (ComboBoxService.SelectedItem == null || ComboBoxService.SelectedItem.ToString().Length == 0)
                 {
                     foreach (UserDTO user in listUser)
                     {
-                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()))
+                        if (user.Site.Town.Contains(ComboBoxSite.SelectedItem.ToString()))
                         {
                             listUserFiltre.Add(user);
                         }
                     }
-
-                    dataGrid.ItemsSource = listUserFiltre;
                 }
                 else
                 {
-                    List<UserDTO> listUserReFiltree = new List<UserDTO>();
-
-                    listUserReFiltree.Clear();
-
-                    foreach (UserDTO user in listUserFiltre)
+                    foreach (UserDTO user in listUser)
                     {
-                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()))
+                        if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()) && user.Site.Town.Contains(ComboBoxSite.SelectedItem.ToString()))
                         {
-                            listUserReFiltree.Add(user);
+                            listUserFiltre.Add(user);
                         }
                     }
-
-                    dataGrid.ItemsSource = listUserReFiltree;
-
-                    listUserFiltre.Clear();
                 }
 
-                foreach (UserDTO user in listUser)
-                {
-                    if (user.Site.Town.Contains(ComboBoxSite.SelectedItem.ToString()))
-                    {
-                        listUserFiltre.Add(user);
-                    }
-                }
+                dataGrid.ItemsSource = null;
 
                 dataGrid.ItemsSource = listUserFiltre;
             }
             else
             {
                 RecupListeUser();
-                listUserFiltre.Clear();
             }
         }
 
@@ -179,6 +159,8 @@ namespace AnnuaireEntrepriseCESI
                 listUser.Clear();
 
                 listUser = _userService.GetAllUsers().Result;
+
+                dataGrid.ItemsSource = null;
 
                 dataGrid.ItemsSource = listUser;
             }
@@ -195,22 +177,95 @@ namespace AnnuaireEntrepriseCESI
 
         private void UserFiltres(string recherche)
         {
-            if (recherche.Length > 0)
+            listUserFiltre.Clear();
+
+            if (recherche.Length > 0 && ComboBoxService.SelectedItem == null && ComboBoxSite.SelectedItem == null)
             {
                 foreach (UserDTO user in listUser)
                 {
-                    if (user.Name.ToLower().Contains(recherche.ToLower()) || user.Surname.ToLower().Contains(recherche.ToLower()) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche) || user.Service.Name.ToLower().Contains(recherche.ToLower()) || user.Site.Town.ToLower().Contains(recherche.ToLower()))
+                    if (user.Name.ToLower().Contains(recherche.ToLower()) || user.Surname.ToLower().Contains(recherche.ToLower()) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche))
                     {
                         listUserFiltre.Add(user);
                     }
                 }
 
+                dataGrid.ItemsSource = null;
+
+                dataGrid.ItemsSource = listUserFiltre;
+            }
+            else if (recherche.Length > 0 && ComboBoxService.SelectedItem == null && ComboBoxSite.SelectedItem != null)
+            {
+                foreach (UserDTO user in listUser)
+                {
+                    if (user.Site.Town == ComboBoxSite.SelectedItem.ToString())
+                    {
+                        if (user.Name.ToLower().Contains(recherche.ToLower()) || user.Surname.ToLower().Contains(recherche.ToLower()) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche))
+                        {
+                            listUserFiltre.Add(user);
+                        }
+                    }
+                }
+
+                dataGrid.ItemsSource = null;
+
+                dataGrid.ItemsSource = listUserFiltre;
+            }
+            else if (recherche.Length > 0 && ComboBoxService.SelectedItem != null && ComboBoxSite.SelectedItem != null)
+            {
+                foreach (UserDTO user in listUser)
+                {
+                    if (user.Site.Town == ComboBoxSite.SelectedItem.ToString() && user.Service.Name == ComboBoxService.SelectedItem.ToString())
+                    {
+                        if (user.Name.ToLower().Contains(recherche.ToLower()) || user.Surname.ToLower().Contains(recherche.ToLower()) || user.Email.Contains(recherche) || user.PhoneNumber.Contains(recherche) || user.MobilePhone.Contains(recherche))
+                        {
+                            listUserFiltre.Add(user);
+                        }
+                    }
+                }
+
+                dataGrid.ItemsSource = null;
+
                 dataGrid.ItemsSource = listUserFiltre;
             }
             else
             {
-                RecupListeUser();
-                listUserFiltre.Clear();
+                if (ComboBoxService.SelectedItem != null || ComboBoxSite.SelectedItem != null)
+                {
+                    listUserFiltre.Clear();
+
+                    if (ComboBoxSite.SelectedItem != null || ComboBoxSite.SelectedItem.ToString().Length > 0)
+                    {
+                        if (ComboBoxService.SelectedItem == null || ComboBoxService.SelectedItem.ToString().Length == 0)
+                        {
+                            foreach (UserDTO user in listUser)
+                            {
+                                if (user.Site.Town.Contains(ComboBoxSite.SelectedItem.ToString()))
+                                {
+                                    listUserFiltre.Add(user);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (UserDTO user in listUser)
+                            {
+                                if (user.Service.Name.Contains(ComboBoxService.SelectedItem.ToString()) && user.Site.Town.Contains(ComboBoxSite.SelectedItem.ToString()))
+                                {
+                                    listUserFiltre.Add(user);
+                                }
+                            }
+                        }
+
+                        dataGrid.ItemsSource = null;
+
+                        dataGrid.ItemsSource = listUserFiltre;
+                    }
+                }
+                else
+                {
+                    RecupListeUser();
+                    listUserFiltre.Clear();
+                }
             }
         }
 

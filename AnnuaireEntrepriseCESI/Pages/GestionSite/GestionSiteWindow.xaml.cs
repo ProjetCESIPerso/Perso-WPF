@@ -122,7 +122,7 @@ namespace AnnuaireEntrepriseCESI.Pages.GestionSite
             if (resultMsgBoxDelete == MessageBoxResult.Yes)
             {
                 //Récupération du nombre d'attribution du service à un employé
-                int NbAttribution = _userService.GetNbOfAttributionToSite(context!.Id).Result;
+                int NbAttribution = await _userService.GetNbOfAttributionToSite(context!.Id);
 
 
                 if (NbAttribution > 0)
