@@ -130,20 +130,28 @@ namespace AnnuaireEntrepriseCESI.Services
         #region Update (Modification)
         public async Task UpdateUser(int id, User user)
         {
-            string json = JsonConvert.SerializeObject(user); /// on transorme notre objet en json
-
-            var client = new HttpClient();
-            using (var request = new HttpRequestMessage(HttpMethod.Put, $"https://localhost:7089/api/User/UpdateUser/{id}"))
+            User userUpdate = new User()
             {
-                using var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                request.Content = stringContent;
+                Id = id,
+                Name = user.Name,
+                Surname = user.Surname,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                MobilePhone = user.MobilePhone,
+                ServiceId = user.ServiceId,
+                SiteId = user.SiteId
+            };
 
-                using var send = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(userUpdate), Encoding.UTF8, "application/json");
 
-                if (!send.IsSuccessStatusCode)
+            using(HttpClient client =  new HttpClient())
+            {
+                client.BaseAddress = new Uri($"https://localhost:7089/api/User/UpdateUser/{id}");
+                HttpResponseMessage result = await client.PutAsync(client.BaseAddress, content);
+                if (!result.IsSuccessStatusCode)
                     throw new Exception();
 
-                var response = send.EnsureSuccessStatusCode();
+                var response = result.EnsureSuccessStatusCode();
             }
         }
         #endregion
